@@ -23,7 +23,7 @@ import { User } from './entities/user.entity';
 @ApiTags('user')
 @Controller('user')
 export class UserController {
-  constructor(private readonly userService: UserService) { }
+  constructor(private readonly userService: UserService) {}
 
   @Post()
   @ApiOperation({ summary: 'Create a new user' })

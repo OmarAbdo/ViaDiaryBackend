@@ -1,26 +1,40 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreatePlaylistDto } from './dto/create-playlist.dto';
 import { UpdatePlaylistDto } from './dto/update-playlist.dto';
+import { Playlist } from './entities/playlist.entity';
 
 @Injectable()
 export class PlaylistService {
-  create(createPlaylistDto: CreatePlaylistDto) {
-    return 'This action adds a new playlist';
+  constructor(
+    @InjectRepository(Playlist)
+    private playlistRepository: Repository<Playlist>,
+  ) {}
+
+  async create(createPlaylistDto: CreatePlaylistDto): Promise<Playlist> {
+    const newPlaylist = this.playlistRepository.create(createPlaylistDto);
+    await this.playlistRepository.save(newPlaylist);
+    return newPlaylist;
   }
 
-  findAll() {
-    return `This action returns all playlist`;
+  findAll(): Promise<Playlist[]> {
+    return this.playlistRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} playlist`;
+  findOne(id: number): Promise<Playlist> {
+    return this.playlistRepository.findOne({ where: { id } });
   }
 
-  update(id: number, updatePlaylistDto: UpdatePlaylistDto) {
-    return `This action updates a #${id} playlist`;
+  async update(
+    id: number,
+    updatePlaylistDto: UpdatePlaylistDto,
+  ): Promise<Playlist> {
+    await this.playlistRepository.update(id, updatePlaylistDto);
+    return this.playlistRepository.findOne({ where: { id } });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} playlist`;
+  remove(id: number): Promise<void> {
+    return this.playlistRepository.delete(id).then(() => null);
   }
 }

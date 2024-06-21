@@ -17,11 +17,12 @@ import {
 import { CommentService } from './comment.service';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
+import { Comment } from './entities/comment.entity';
 
 @ApiTags('comment')
 @Controller('comment')
 export class CommentController {
-  constructor(private readonly commentService: CommentService) { }
+  constructor(private readonly commentService: CommentService) {}
 
   @Post()
   @ApiOperation({ summary: 'Create a new comment' })
@@ -36,7 +37,11 @@ export class CommentController {
 
   @Get()
   @ApiOperation({ summary: 'Get all comments' })
-  @ApiResponse({ status: 200, description: 'Return all comments.' })
+  @ApiResponse({
+    status: 200,
+    description: 'Return all comments.',
+    type: [Comment],
+  })
   findAll() {
     return this.commentService.findAll();
   }
@@ -51,6 +56,7 @@ export class CommentController {
   @ApiResponse({
     status: 200,
     description: 'Return the comment.',
+    type: Comment,
   })
   findOne(@Param('id') id: string) {
     return this.commentService.findOne(+id);
