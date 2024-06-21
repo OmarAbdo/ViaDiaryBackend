@@ -20,7 +20,3 @@ export async function run() {
 
   await app.close();
 }
-
-// (Optional) If you want to run this script directly
-// Uncomment the following line:
-// run().catch(error => console.error(error));
