@@ -1,4 +1,12 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateTrackDto } from './create-track.dto';
+import { ApiProperty } from '@nestjs/swagger';
 
-export class UpdateTrackDto extends PartialType(CreateTrackDto) {}
+export class UpdateTrackDto {
+  @ApiProperty()
+  trackId: number;
+  @ApiProperty({ required: false })
+  title?: string;
+  @ApiProperty({ required: false })
+  description?: string;
+  @ApiProperty()
+  userId: number;
+}

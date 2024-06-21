@@ -1,4 +1,10 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreatePlaylistDto } from './create-playlist.dto';
+import { ApiProperty } from '@nestjs/swagger';
 
-export class UpdatePlaylistDto extends PartialType(CreatePlaylistDto) {}
+export class UpdatePlaylistDto {
+  @ApiProperty()
+  playlistId: number;
+  @ApiProperty()
+  name: string;
+  @ApiProperty()
+  userId: number;
+}
