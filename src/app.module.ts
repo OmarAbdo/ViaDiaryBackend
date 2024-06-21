@@ -8,6 +8,7 @@ import { TrackModule } from './track/track.module';
 import { UserModule } from './user/user.module';
 import * as dotenv from 'dotenv';
 import * as mysql from 'mysql2/promise';
+import { stringToBoolean } from './utils/utils';
 
 dotenv.config();
 @Module({
@@ -17,10 +18,12 @@ dotenv.config();
         const connection = await mysql.createConnection({
           host: process.env.DB_HOST,
           user: process.env.DB_USERNAME,
-          password: process.env.DB_PASSWORD
+          password: process.env.DB_PASSWORD,
         });
 
-        await connection.query(`CREATE DATABASE IF NOT EXISTS ${process.env.DB_NAME}`);
+        await connection.query(`
+          CREATE DATABASE IF NOT EXISTS ${process.env.DB_NAME}
+        `);
         await connection.end();
 
         return {
@@ -31,7 +34,7 @@ dotenv.config();
           password: process.env.DB_PASSWORD,
           database: process.env.DB_NAME,
           entities: [__dirname + '/**/*.entity{.ts,.js}'],
-          synchronize: true, // Be careful with this in production!
+          synchronize: stringToBoolean(process.env.DB_SYNCHRONIZE),
         };
       },
     }),
