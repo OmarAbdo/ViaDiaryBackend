@@ -54,6 +54,7 @@ export class PlaylistController {
     name: 'id',
     required: true,
     description: 'id of the playlist to retrieve',
+    type: String,
   })
   @ApiOkResponse({
     status: 200,
@@ -71,6 +72,7 @@ export class PlaylistController {
     name: 'id',
     required: true,
     description: 'id of the playlist to update',
+    type: String,
   })
   @ApiBody({ type: UpdatePlaylistDto })
   @ApiResponse({
@@ -92,6 +94,7 @@ export class PlaylistController {
     name: 'id',
     required: true,
     description: 'id of the playlist to delete',
+    type: String,
   })
   @ApiResponse({
     status: 200,

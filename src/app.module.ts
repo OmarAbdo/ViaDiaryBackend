@@ -9,6 +9,7 @@ import { UserModule } from './user/user.module';
 import * as dotenv from 'dotenv';
 import * as mysql from 'mysql2/promise';
 import { stringToBoolean } from './utils/utils';
+import { AuthModule } from './auth/auth.module';
 
 dotenv.config();
 @Module({
@@ -42,6 +43,7 @@ dotenv.config();
     TrackModule,
     PlaylistModule,
     CommentModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

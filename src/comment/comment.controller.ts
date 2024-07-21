@@ -52,6 +52,7 @@ export class CommentController {
     name: 'id',
     required: true,
     description: 'id of the comment to retrieve',
+    type: String,
   })
   @ApiResponse({
     status: 200,
@@ -68,6 +69,7 @@ export class CommentController {
     name: 'id',
     required: true,
     description: 'id of the comment to update',
+    type: String,
   })
   @ApiBody({ type: UpdateCommentDto })
   @ApiResponse({
@@ -84,6 +86,7 @@ export class CommentController {
     name: 'id',
     required: true,
     description: 'id of the comment to delete',
+    type: String,
   })
   @ApiResponse({
     status: 200,

@@ -52,9 +52,9 @@ export class TrackController {
     name: 'id',
     required: true,
     description: 'id of the track to retrieve',
-    type: Track,
+    type: String,
   })
-  @ApiResponse({ status: 200, description: 'Return the track.' })
+  @ApiResponse({ status: 200, description: 'Return the track.', type: Track })
   findOne(@Param('id') id: string) {
     return this.trackService.findOne(+id);
   }
@@ -65,6 +65,7 @@ export class TrackController {
     name: 'id',
     required: true,
     description: 'id of the track to update',
+    type: String,
   })
   @ApiBody({ type: UpdateTrackDto })
   @ApiResponse({
@@ -81,6 +82,7 @@ export class TrackController {
     name: 'id',
     required: true,
     description: 'id of the track to delete',
+    type: String,
   })
   @ApiResponse({
     status: 200,

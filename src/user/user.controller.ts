@@ -55,6 +55,7 @@ export class UserController {
     name: 'id',
     required: true,
     description: 'id of the user to retrieve',
+    type: String,
   })
   @ApiOkResponse({ status: 200, description: 'Return the user.' })
   @ApiResponse({ status: 404, description: 'User not found.' })
@@ -68,6 +69,7 @@ export class UserController {
     name: 'id',
     required: true,
     description: 'id of the user to update',
+    type: String,
   })
   @ApiBody({ type: UpdateUserDto })
   @ApiResponse({
@@ -86,6 +88,7 @@ export class UserController {
     name: 'id',
     required: true,
     description: 'id of the user to delete',
+    type: String,
   })
   @ApiResponse({
     status: 200,
