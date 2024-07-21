@@ -1,19 +1,23 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CommentModule } from './comment/comment.module';
 import { PlaylistModule } from './playlist/playlist.module';
 import { TrackModule } from './track/track.module';
 import { UserModule } from './user/user.module';
-import * as dotenv from 'dotenv';
+import { AuthModule } from './auth/auth.module';
 import * as mysql from 'mysql2/promise';
 import { stringToBoolean } from './utils/utils';
-import { AuthModule } from './auth/auth.module';
 
-dotenv.config();
 @Module({
   imports: [
+    // Load environment variables
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
+    // Async TypeORM configuration
     TypeOrmModule.forRootAsync({
       useFactory: async () => {
         const connection = await mysql.createConnection({
