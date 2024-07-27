@@ -3,6 +3,7 @@ import {
   Post,
   UploadedFile,
   UseInterceptors,
+  Body,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { UploadService } from './upload.service';
@@ -24,14 +25,33 @@ export class UploadController {
           type: 'string',
           format: 'binary',
         },
+        title: {
+          type: 'string',
+        },
+        description: {
+          type: 'string',
+        },
+        userId: {
+          type: 'number',
+        },
       },
     },
   })
-  async uploadAudio(@UploadedFile() file: Express.Multer.File) {
-    this.uploadService.handleFile(file);
+  async uploadAudio(
+    @UploadedFile() file: Express.Multer.File,
+    @Body('title') title: string,
+    @Body('description') description: string,
+    @Body('userId') userId: number,
+  ) {
+    const track = await this.uploadService.handleFile(
+      file,
+      title,
+      description,
+      userId,
+    );
     return {
       message: 'File uploaded successfully',
-      filePath: file.path,
+      track,
     };
   }
 }
