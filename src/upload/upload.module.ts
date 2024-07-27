@@ -4,6 +4,9 @@ import { UploadController } from './upload.controller';
 import { MulterModule } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { TrackModule } from '../track/track.module'; // Import TrackModule
+import { User } from '../user/entities/user.entity'; // Import User class or interface
 
 @Module({
   imports: [
@@ -37,8 +40,10 @@ import { extname } from 'path';
         }
       },
     }),
+    TypeOrmModule.forFeature([User]), // Assuming UserRepository is also needed
+    TrackModule, // Import TrackModule to make TrackRepository available
   ],
-  controllers: [UploadController],
   providers: [UploadService],
+  controllers: [UploadController],
 })
 export class UploadModule {}
